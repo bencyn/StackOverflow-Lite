@@ -95,6 +95,7 @@ main {
 }
 article div{
     flex: 1;
+
     /*text-align: center;*/
 }
 .main > nav,
@@ -121,7 +122,7 @@ article div{
     margin-bottom: 1.2em;
     color: #03A9F4;
 }
-.question .btn-primary{
+.question .q-btn{
     float: right;
     background: #009688;
     padding: 6px;
@@ -144,6 +145,54 @@ article div{
 .q-title{
     width: 657px;
     padding-right: 9px;
+}
+form{
+    display:inline-block;
+}
+form p{
+    margin-bottom: 1rem;
+}
+label {
+    display: inline-block;
+    margin-bottom: 9px;
+    font-size: 18px;
+}
+article .sub-container{
+    /*margin: 0 auto;*/
+    background: #f0f8ff9c;
+    padding: 15px;
+    border-radius: 5px;
+}
+input{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 0.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    margin-bottom: 1rem;
+}
+button, input {
+    overflow: visible;
+}
+.login{
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 250px;
+}
+
+.submit{
+    background: #009688;
+    padding: 6px;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: white;
+    display: block;
+    width: 112%;
 }
 .footer{
     height: 30px;
