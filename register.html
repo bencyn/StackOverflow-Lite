@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>StackOverflow-lite : Login</title>
+    <title>StackOverflow-lite : Register</title>
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <a href="index.html" class="logo"><h2><strong>StackOverflow</strong>-lite</h2></a>
         <div class="navigation">
             <a href="index.html">Home</a>
-            <a  class="active" href="login.html">Login</a>
+            <a  href="login.html">Login</a>
             <!--<a href="register.html">Sign Up</a>-->
         </div>
     </header>
@@ -25,16 +25,22 @@
                 <br/>
             </div>
             <div class="sub-container">
-                <div class="login">
+                <div class="register">
                     <form>
                         <label for="username">Username</label>
                         <input type="text" placeholder="Enter Username" id="username" name="username" required>
 
+                        <label for="email">Email</label>
+                        <input type="text" placeholder="Enter Email" id="email" name="email" required>
+
                         <label for="password">Password</label>
                         <input type="text" placeholder="Enter Password" id="password" name="password" required>
-                        <button class="submit" type="submit">Login</button>
+
+                        <label for="password">Confirm Password</label>
+                        <input type="text" placeholder="Confirm Password" id="password-confirm" name="password-confirm" required>
+                        <button class="submit" type="submit">Register</button>
                     </form>
-                    <p>Don't have an account? <a href="register.html">Register Here!</a></p>
+                    <p>Already have an account? <a href="login.html">Login Here!</a></p>
                 </div>
 
             </div>
