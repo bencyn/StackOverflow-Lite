@@ -1,8 +1,22 @@
 from flask import Flask,request,jsonify
+import re
+
 
 app = Flask(__name__)
 
 users =[]
+questions = []
+
+
+def validate_password(password):
+    exp = r'[A-Za-z0-9@#$%^&+=]{8,}'
+    if re.match(r'[A-Za-z0-9@#$%^&+=]{8,}', password):
+        return  True
+    else:
+        return False
+
+# no match
+
 
 
 def _validator(user):
@@ -32,6 +46,10 @@ def register():
     password = request.get_json()['password']
 
 
+    # print(validate_password(password))
+    if validate_password(password) == False:
+        return jsonify({"Message": "Invalid Password"})
+
     if any(i['username'] == username for i in users):
         return jsonify({'msg': 'username already exists'}), 409
     if any(i['email'] == email for i in users):
@@ -50,6 +68,14 @@ def register():
 def getUsers():
     if request.method == 'GET':
         return jsonify(users)
+
+# post questions
+
+# get questions
+
+# update questions
+
+# delete questions
 
 if __name__=="__main__":
     app.run(debug=True)
