@@ -1,13 +1,9 @@
 from flask import Flask,request,jsonify
-import re
-
+import re, itertools
 
 app = Flask(__name__)
 
 users =[]
-questions = []
-
-
 def validate_password(password):
     exp = r'[A-Za-z0-9@#$%^&+=]{8,}'
     if re.match(r'[A-Za-z0-9@#$%^&+=]{8,}', password):
@@ -16,8 +12,6 @@ def validate_password(password):
         return False
 
 # no match
-
-
 
 def _validator(user):
     for key,value in user.items():
@@ -45,7 +39,6 @@ def register():
     email = request.get_json()['email']
     password = request.get_json()['password']
 
-
     # print(validate_password(password))
     if validate_password(password) == False:
         return jsonify({"Message": "Invalid Password"})
@@ -69,9 +62,40 @@ def getUsers():
     if request.method == 'GET':
         return jsonify(users)
 
-# post questions
+
+questions = []
+counter = itertools.count()
+next(counter)
 
 # get questions
+@app.route("/questions", methods=['GET'])
+def getQuestions():
+    return jsonify(questions)
+
+# post question
+@app.route("/question/create", methods=['POST'])
+def postQuestions():
+    data = request.get_json()
+    if not data:
+        return jsonify({"Message": 'Cannot send empty data'})
+    if not all(field in data for field in ['title','description']):
+        return jsonify({"Message": "All fields are required"})
+
+    title = request.get_json()['title']
+    description = request.get_json()['description']
+    count=next(counter)
+
+    question= {
+        'id':count,
+        'title' : title,
+        'description': description
+    }
+
+    questions.append(question)
+
+    return jsonify({'question': question}), 201
+
+
 
 # update questions
 
