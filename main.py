@@ -25,6 +25,12 @@ def _validator(user):
 def index():
     return "Http Homepage %s"% request.method
 
+@app.route("/users", methods=['GET'])
+def getUsers():
+    if request.method == 'GET':
+        return jsonify(users)
+
+
 # user signup and get users
 @app.route("/register", methods=['POST'])
 def register():
@@ -57,15 +63,25 @@ def register():
         return jsonify({'user': user}), 201
 
 
-@app.route("/users", methods=['GET'])
-def getUsers():
-    if request.method == 'GET':
-        return jsonify(users)
-
-
 questions = []
 counter = itertools.count()
 next(counter)
+
+# user signup and get users
+@app.route("/user/update/<int:id>", methods=['PUT'])
+def updateUser(id):
+    data = request.get_json()
+    if not data:
+        return jsonify({"Message": 'Cannot send empty data'})
+
+    if request.get_json()['username'] :
+        username =request.get_json()['username']
+        users[id]['username']= username
+    if request.get_json()['email']:
+        email =request.get_json()['email']
+        users[id]['email'] = email
+
+    return jsonify({'user': users[id]}), 201
 
 # get questions
 @app.route("/questions", methods=['GET'])
@@ -85,21 +101,44 @@ def postQuestions():
     description = request.get_json()['description']
     count=next(counter)
 
-    question= {
-        'id':count,
-        'title' : title,
+    subitems= {
+        'title': title,
         'description': description
     }
+    # count={}
+    question= {'id':count,"items":subitems}
+
 
     questions.append(question)
 
     return jsonify({'question': question}), 201
 
+@app.route("/question/update/<int:id>", methods=['PUT'])
+def updateQuestion(id):
+    # data = request.get_json()
+    # if not data:
+    #     return jsonify({"Message": 'Cannot send empty data'})
+    # if not all(field in data for field in ['id']):
+    #     return jsonify({"Message": "All fields are required"})
 
+    if request.get_json('title'):
+        title = request.get_json('title')
+        questions['id':id]['title']=title
 
+    if request.get_json('description'):
+        description = request.get_json('description')
+        questions[id]['description'] = description
+
+    return jsonify({"Message": "Question id %d is successfully delete".format(id)})
+
+@app.route("/question/delete/<int:id>", methods=['DELETE'])
+def deleteQuestion(id):
+    questions.remove(questions[id])
+    return jsonify({"Message": "Question id {} is successfully delete".format(id)})
 # update questions
 
 # delete questions
+
 
 if __name__=="__main__":
     app.run(debug=True)
