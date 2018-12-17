@@ -30,14 +30,20 @@ def register():
     username = request.get_json()['username']
     email = request.get_json()['email']
     password = request.get_json()['password']
-    user = {
-        "username": username,
-        "email": email,
-        "password":password
-    }
-    users.append(user)
 
-    return jsonify({'user': user}), 201
+
+    if any(i['username'] == username for i in users):
+        return jsonify({'msg': 'username already exists'}), 409
+    if any(i['email'] == email for i in users):
+        return jsonify({'msg': 'email already exists'}), 409
+    else:
+        user = {
+            "username": username,
+            "email": email,
+            "password":password
+        }
+        users.append(user)
+        return jsonify({'user': user}), 201
 
 
 @app.route("/users", methods=['GET'])
