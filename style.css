@@ -180,7 +180,7 @@ input{
 button, input {
     overflow: visible;
 }
-.login, .register{
+.login{
     margin: 0 auto;
     margin-top: 50px;
     width: 250px;
